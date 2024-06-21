@@ -1,0 +1,69 @@
+.ayudaPage {
+    padding: 0px;
+  }
+  
+  .ayudaPage h1 {
+    font-size: 3em;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #333;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .preguntasFrecuentes {
+    margin-top: 30px;
+  }
+  
+  .pregunta {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(45deg, #f9f9f9, #ddd);
+    color: #333;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .pregunta h3 {
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+  
+  .pregunta p {
+    line-height: 1.6;
+  }
+  
+  .contactanos {
+    margin-top: 50px;
+    padding: 30px;
+    background: linear-gradient(45deg, #f9f9f9, #ddd);
+    color: #333;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+  
+  .contactanos h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  
+  .contactanos p {
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+  
+  .contactanosButton {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+  }
+  
+  .contactanosButton:hover {
+    background-color: #555;
+  }
+  

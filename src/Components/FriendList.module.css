@@ -1,0 +1,15 @@
+.sidebar {
+    position: fixed;
+    left: 0;
+    width: 200px; /* Ajusta esto según tus necesidades */
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #f9f9f9; /* Ajusta esto según tus necesidades */
+    padding: 20px;
+  }
+  
+  .feed {
+    margin-left: 220px; /* Asegúrate de que esto sea mayor que el ancho de tu sidebar */
+    /* el resto de tus estilos */
+  }
+  
