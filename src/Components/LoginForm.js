@@ -1,9 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './LoginForm.module.css';
 import catcute from '../imagenes/catcute.jpg';
-import {Link} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from "../configuredatabase"; // Asegúrate de que la ruta es correcta
 
 const LoginForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
+
+  const handleLogin = async () => {
+  try{
+    await signInWithEmailAndPassword(auth,email, password);
+    navigate('/home');
+  } catch(err){
+    setError('Error al iniciar sesión. Por favor, verifica tus credenciales.');
+  }
+
+  };
+
+  const handleRegister = () => {
+    navigate('/register');
+  };
+
   return (
       <div className={styles.half}>
         <div className={styles.bg} style={{backgroundImage: `url(${catcute})`}}></div>
@@ -16,11 +37,11 @@ const LoginForm = () => {
                 <form action="#" method="post">
                   <div className={styles.formGroup}>
                     <label htmlFor="username">Email</label>
-                    <input type="text" className={styles.formControl} placeholder="Tu_correo@gmail.com" id="username"/>
+                    <input type="text" className={styles.formControl} placeholder="Tu_correo@gmail.com" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                   </div>
                   <div className={`${styles.formGroup} ${styles.mb3}`}>
                     <label htmlFor="password">Password</label>
-                    <input type="password" className={styles.formControl} placeholder="Tu contraseña" id="password"/>
+                    <input type="password" className={styles.formControl} placeholder="Tu contraseña" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                   </div>
                   <div className={`${styles.dFlex} ${styles.mb5}`}>
                     <label className={`${styles.control} ${styles.controlCheckbox}`}>
@@ -30,11 +51,11 @@ const LoginForm = () => {
                     </label>
                     <span className={styles.mlAuto}><a href="#" className={styles.forgotPass}>¿Olvidaste la contraseña?</a></span>
                   </div>
-                  <input type="submit" value="Ingresar" className={styles.btn}/>
+                  <button type="button" className={styles.btn} onClick={handleLogin}>Ingresar</button>
                 </form>
                 <div className={styles.registerLink}>
                   <p>¿No tienes una cuenta?</p>
-                  <button className={styles.btn2}><Link to="/register">Registrar</Link></button>
+                  <button type="button" className={styles.btn2} onClick={handleRegister}>Registrar</button>
                 </div>
               </div>
             </div>
@@ -45,4 +66,5 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
 
