@@ -1,0 +1,114 @@
+.popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popupContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 800px; /* Ajusta según sea necesario para hacer la ventana más grande */
+    height: 600px; /* Ajusta según sea necesario para hacer la ventana más grande */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .popupTitle {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Para que el formulario ocupe el espacio disponible */
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .logoAndUser {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 60px;
+    height: auto;
+    margin-right: 10px;
+  }
+  
+  .username {
+    font-size: 16px;
+  }
+  
+  .submitButton {
+    margin-top: 20px;
+    background-color: pink;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .label {
+    margin-bottom: 10px;
+  }
+  
+  .input, .textarea {
+    width: calc(100% - 20px); /* Reduce el ancho del elemento */
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-right: 10px; /* Añade margen a la derecha */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .textarea {
+    height: 100px; /* Ajusta según sea necesario */
+    resize: vertical;
+  }
+  
+  .uploadButton, .locationButton {
+    background-color: pink;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .uploadButton {
+    margin-bottom: 10px;
+  }
+  
