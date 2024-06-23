@@ -62,3 +62,13 @@
   background-color: pink;
   color: white;
 }
+
+.signOutButton{
+  background-color: pink;
+  color: white;
+  border: none;
+}
+
+.navList :hover{
+  color: #98F5F9;
+}

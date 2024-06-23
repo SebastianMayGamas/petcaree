@@ -12,12 +12,13 @@ const LoginForm = () => {
   const [error, setError] = useState('');
 
   const handleLogin = async () => {
-  try{
-    await signInWithEmailAndPassword(auth,email, password);
-    navigate('/home');
-  } catch(err){
-    setError('Error al iniciar sesión. Por favor, verifica tus credenciales.');
-  }
+    try{
+      await signInWithEmailAndPassword(auth,email, password);
+      navigate('/home');
+    } catch(err){
+      setError('Error al iniciar sesión. Por favor, verifica tus credenciales.');
+      alert('Error al iniciar sesión. Por favor, verifica tus credenciales.');
+    }
 
   };
 

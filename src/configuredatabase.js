@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-
+import {getStorage, ref, uploadBytes} from 'firebase/storage'
+import {v4} from 'uuid'
 const firebaseConfig = {
         apiKey: "AIzaSyB2iCArZOp-GMX1GCxh5MQwEQawfKwepQw",
         authDomain: "petcare-b08a0.firebaseapp.com",
@@ -13,5 +14,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
+export const storage = getStorage(app);
 export { auth };
+
+export function uploadfile(file){
+      const storageRef = ref(storage, v4())
+        uploadBytes(storageRef,file).then(snapshot => {
+                console.log(snapshot);
+        })
+}

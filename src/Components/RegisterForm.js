@@ -1,9 +1,9 @@
 import styles from './ResisterForm.module.css';
 import React, { useState } from 'react';
 import dogmeo from '../imagenes/cat-71494_1280.jpg';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../configuredatabase"; // Asegúrate de que la ruta es correcta
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const RegisterForm = () => {
     const [firstName, setFirstName] = useState('');
@@ -12,6 +12,7 @@ const RegisterForm = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,7 +21,12 @@ const RegisterForm = () => {
             return;
         }
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            await updateProfile(user, {
+                displayName: `${firstName} ${lastName}`
+            });
+            navigate('/'); // Redirigir a la página de inicio después del registro
             console.log("Usuario registrado con éxito");
         } catch (error) {
             setError(error.message);
@@ -108,4 +114,3 @@ const RegisterForm = () => {
 };
 
 export default RegisterForm;
-

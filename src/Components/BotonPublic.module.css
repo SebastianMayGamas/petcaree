@@ -3,7 +3,7 @@
   display: flex;
   margin-left: 30%;
   align-items: center;
-  height: 15; /* Asegúrate de que ocupe toda la altura de la pantalla */
+  height: 15px; /* Asegúrate de que ocupe toda la altura de la pantalla */
 }
 
 .publicarButtonContainer {

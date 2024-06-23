@@ -1,3 +1,4 @@
+// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './Components/Home';
@@ -10,25 +11,26 @@ import ProfileDueno from './Components/ProfileDueno';
 import ProfileExpert from './Components/ProfileExpert';
 import Ayuda from './Components/Ayuda';
 import Mapa from './Components/Mapa';
-
+import ProtectedRoute from './ProtectedRoute'; // Importar ProtectedRoute
+import { AuthProvider } from './AuthContext'; // Importar AuthProvider
 
 function App() {
   return (
       <Router>
-        <div>
+        <AuthProvider>
           <Routes>
-            <Route path="/home" element={<Home />} />
             <Route path="/" element={<LoginForm />} />
+            <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
             <Route path="/register" element={<RegisterForm />} />
-            <Route path="/registroDueno/:id" element={<DuenoForm />} />
-            <Route path='/perfil/:id' element={<Perfil />} />
-            <Route path='/registroexpert/:id' element={<ExpertoForm />} />
-            <Route path='/perfilDueno/:id' element={<ProfileDueno />} />
-            <Route path='/perfilExpert/:id' element={<ProfileExpert />} />
-            <Route path="/ayuda" element={<Ayuda />} />
-            <Route path="/Mapa" element={<Mapa />} />
+            <Route path="/registroDueno/:id" element={<ProtectedRoute><DuenoForm /></ProtectedRoute>} />
+            <Route path="/perfil" element={<ProtectedRoute><Perfil /></ProtectedRoute>} />
+            <Route path="/registroexpert/:id" element={<ProtectedRoute><ExpertoForm /></ProtectedRoute>} />
+            <Route path="/perfilDueno/:id" element={<ProtectedRoute><ProfileDueno /></ProtectedRoute>} />
+            <Route path="/perfilExpert/:id" element={<ProtectedRoute><ProfileExpert /></ProtectedRoute>} />
+            <Route path="/ayuda" element={<ProtectedRoute><Ayuda /></ProtectedRoute>} />
+            <Route path="/Mapa" element={<ProtectedRoute><Mapa /></ProtectedRoute>} />
           </Routes>
-        </div>
+        </AuthProvider>
       </Router>
   );
 }

@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './PublicarPopup.module.css';
 import imagenLogo from '../imagenes/logo.png';
+import { uploadfile } from '../configuredatabase';
+import { getAuth } from "firebase/auth";
 
 const PublicarPopup = ({ onClose, onAddPost }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [image, setImage] = useState('');
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user) {
+      setEmail(user.email);
+      setName(user.displayName);
+    }
+  }, []);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -17,7 +31,7 @@ const PublicarPopup = ({ onClose, onAddPost }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newPost = {
-      user: 'Nombre de usuario', // Ajusta según sea necesario
+      user: name, // Ajusta según sea necesario
       text: `${title}\n\n${content}`,
       image: 'https://via.placeholder.com/180' // Ajusta para permitir la carga de imágenes reales
     };
@@ -26,30 +40,30 @@ const PublicarPopup = ({ onClose, onAddPost }) => {
   };
 
   return (
-    <div className={styles.popupOverlay}>
-      <div className={styles.popupContent}>
-        <button className={styles.closeButton} onClick={onClose}>X</button>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.header}>
-            <div className={styles.logoAndUser}>
-              <img src={imagenLogo} alt="Logo" className={styles.logo} />
-              <span className={styles.username}>Nombre de usuario</span>
+      <div className={styles.popupOverlay}>
+        <div className={styles.popupContent}>
+          <button className={styles.closeButton} onClick={onClose}>X</button>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <div className={styles.header}>
+              <div className={styles.logoAndUser}>
+                <img src={imagenLogo} alt="Logo" className={styles.logo} />
+                <span className={styles.username}>{name}</span>
+              </div>
+              <button type="submit" className={styles.submitButton}>Publicar</button>
             </div>
-            <button type="submit" className={styles.submitButton}>Publicar</button>
-          </div>
-          <label className={styles.label}>
-            Título:
-            <input type="text" name="title" value={title} onChange={handleTitleChange} className={styles.input} />
-          </label>
-          <label className={styles.label}>
-            Contenido:
-            <textarea name="content" value={content} onChange={handleContentChange} className={styles.textarea}></textarea>
-          </label>
-          <button type="button" className={styles.uploadButton}>Seleccionar Imagen</button>
-          <button type="button" className={styles.locationButton}>Seleccionar Ubicación</button>
-        </form>
+            <label className={styles.label}>
+              Título:
+              <input type="text" name="title" value={title} onChange={handleTitleChange} className={styles.input} />
+            </label>
+            <label className={styles.label}>
+              Contenido:
+              <textarea name="content" value={content} onChange={handleContentChange} className={styles.textarea}></textarea>
+            </label>
+            <input type="file" className={styles.uploadButton} onChange={e => uploadfile(e.target.files[0])} />
+            <button type="button" className={styles.locationButton}>Seleccionar Ubicación</button>
+          </form>
+        </div>
       </div>
-    </div>
   );
 };
 
