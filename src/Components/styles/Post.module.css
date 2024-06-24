@@ -34,3 +34,9 @@
 .actions button:hover {
   background-color: #f9f9f9;
 }
+.imagenpost{
+  width: 100%; /* La imagen ocupará el 100% del ancho del contenedor */
+  height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
+  max-height: 300px; /* Ajusta la altura máxima según sea necesario */
+  object-fit: cover; /* Ajusta el tamaño de la imagen para cubrir todo el contenedor */
+}
