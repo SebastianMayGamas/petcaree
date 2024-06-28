@@ -1,0 +1,56 @@
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.profileHeader {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profileInfo {
+    display: flex;
+    align-items: center;
+}
+
+.profileImage {
+    margin-right: 20px;
+    flex: 0 0 auto; /* Asegura que el tamaño del contenedor de la imagen no cambie */
+    width: 150px; /* Define un ancho fijo para el contenedor de la imagen */
+    height: 150px; /* Define una altura fija para el contenedor de la imagen */
+    overflow: hidden; /* Oculta cualquier parte de la imagen que se desborde */
+    border-radius: 50%; /* Aplica un borde redondeado para un efecto circular */
+}
+
+.profileImage img {
+    width: 100%; /* Asegura que la imagen ocupe todo el espacio disponible en su contenedor */
+    height: auto; /* Mantiene la proporción original de la imagen */
+    object-fit: cover; /* Cubre el contenedor manteniendo la relación de aspecto */
+}
+
+.userInfo {
+    flex: 1;
+}
+
+.perfil-img {
+    max-width: 200px;
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+input[type='file'] {
+    margin-top: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+

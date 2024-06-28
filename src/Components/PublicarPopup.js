@@ -19,6 +19,7 @@ const PublicarPopup = ({ onClose, onAddPost }) => {
     if (user) {
       setEmail(user.email);
       setName(user.displayName);
+      setImage(user.photoURL);
     }
   }, []);
 
@@ -49,7 +50,8 @@ const PublicarPopup = ({ onClose, onAddPost }) => {
     const newPost = {
       user: {
         email: email,
-        displayName: name
+        displayName: name,
+        photoURL : imageUrl
       },
       title: title,
       content: content,
