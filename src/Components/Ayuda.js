@@ -26,7 +26,7 @@ function Ayuda() {
       <div className={styles.contactanos}>
         <h2>¿Todavía necesitas ayuda?</h2>
         <p>¡No te preocupes! Contáctanos y estaremos encantados de ayudarte.</p>
-        <a href="/contacto" className={styles.contactanosButton}>Contáctanos</a>
+        <a href="https://forms.gle/yFQK3YUrWRK957up7" target="_blank" className={styles.contactanosButton}>Contáctanos</a>
       </div>
     </div>
   );

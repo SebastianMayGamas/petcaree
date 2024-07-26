@@ -1,9 +1,11 @@
+/* styles/NavBar.module.css */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: pink;
+  background-color: #0303b5;
   padding: 10px;
+  position: relative; /* Para posicionar correctamente los resultados de búsqueda */
 }
 
 .leftSection {
@@ -40,35 +42,51 @@
 
 .searchInput {
   border-radius: 5px;
-  /* Borde redondeado más sutil */
   padding: 8px 15px;
-  /* Ajuste del relleno para mejor apariencia */
   margin-right: 10px;
   border: 1px solid #ccc;
-  /* Añadir un borde para una mejor apariencia */
   font-size: 16px;
-  /* Ajuste del tamaño de fuente */
+  width: 200px; /* Ajusta el ancho según sea necesario */
 }
 
 .searchButton {
   padding: 5px 10px;
   background-color: white;
-  color: pink;
+  color: #0404e2;
   border: none;
   cursor: pointer;
 }
 
 .searchButton:hover {
-  background-color: pink;
+  background-color: #0404e2;
   color: white;
 }
 
-.signOutButton{
-  background-color: pink;
+.signOutButton {
+  background-color: #0404e2;
   color: white;
   border: none;
+  cursor: pointer;
 }
 
-.navList :hover{
-  color: #98F5F9;
+.searchResults {
+  position: absolute;
+  top: calc(100% + 10px); /* Posiciona los resultados debajo del input */
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000; /* Asegura que esté encima de otros elementos */
+}
+
+.searchResult {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.searchResult:hover {
+  background-color: #f0f0f0;
 }

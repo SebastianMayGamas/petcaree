@@ -1,23 +1,58 @@
 .post {
-  width: 100%; 
+  width: 100%;
   max-width: 600px;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 25px;
   margin-bottom: 20px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
+
+.post.rescued {
+  background-color: #ffc2cc; /* Color grisáceo */
+  border-color: #ffc2cc; /* Bordes en un tono más oscuro */
+}
+
 .userInfo {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.userInfo img {
+.userImage {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   margin-right: 10px;
   align-items: center;
+}
+
+.userName {
+  font-weight: bold;
+  color: #333;
+}
+
+.postTitle {
+  font-weight: bold;
+  font-size: 20px;
+  color: #555;
+  padding-bottom: 3px;
+}
+
+.postText {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.postImage {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+  margin-bottom: 15px;
 }
 
 .actions button {
@@ -34,16 +69,38 @@
 .actions button:hover {
   background-color: #f9f9f9;
 }
-.postImage{
-  width: 100%; /* La imagen ocupará el 100% del ancho del contenedor */
-  height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
-  max-height: 300px; /* Ajusta la altura máxima según sea necesario */
-  object-fit: cover; /* Ajusta el tamaño de la imagen para cubrir todo el contenedor */
+
+.actionButton {
+  margin: 0 5px; /* Ajusta el margen entre los botones */
 }
 
-.userImage {
-  width: 50px; /* Ajusta el tamaño de la imagen del usuario según sea necesario */
-  height: 50px;
-  border-radius: 50%; /* Para hacer la imagen circular si es necesario */
-  margin-right: 10px;
+.actionButton:hover {
+  background-color: #1976d2; /* Cambia el color a azul en hover */
+  color: white; /* Asegúrate de que el texto sea visible sobre el fondo azul */
+}
+
+.commentModal, .shareModal {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.commentsSection {
+  margin-top: 20px;
+}
+
+.comment {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+}
+
+.commentDate {
+  font-size: 12px; /* Ajusta el tamaño de la fuente según tu preferencia */
+  color: #888; /* Color gris para la fecha */
 }

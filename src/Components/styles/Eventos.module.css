@@ -1,39 +1,53 @@
 .eventos {
-    position: fixed;
-    top: 100px; 
-    right: 0;
-    width: 20%; 
-    height: calc(100% - 60px); 
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    border-top-left-radius: 15px;
-  }
-  .adTitule {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    margin-left: 5%;
-  }
-  .adContainer1 {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: pink;
-    border-radius: 10px;
-    padding: 10px;
-    color: white;
-  }
-  
-  .logo {
-    width: 40%;
-    height: auto;
-    border-radius: 10px;
-  }
-  
-  .adText1 {
-    margin-top: 10px;
-    text-align: center;
-  }
+  position: fixed;
+  top: 100px; 
+  right: 0;
+  width: 25%; /* Ajusta el ancho según el diseño deseado */
+  max-width: 400px; /* Añade un límite máximo para evitar que se vuelva demasiado grande */
+  height: auto; /* Ajusta la altura automáticamente */
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 999; /* Asegúrate de que el z-index sea menor que el del popup */
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-top-left-radius: 15px;
+  overflow: hidden; /* Asegura que no haya desbordamiento visible */
+}
+
+.carouselContainer {
+  margin-bottom: 20px; /* Espacio entre los carruseles */
+  width: 100%;
+}
+
+.adTitule {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  margin-left: 5%;
+  font-size: 16px; /* Ajusta el tamaño de la fuente del título */
+}
+
+.adContainer1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #0404e2;
+  border-radius: 10px;
+  padding: 10px; /* Ajusta el padding para no sobrecargar el espacio */
+  color: white;
+}
+
+.logo {
+  width: 100%; /* Ajusta el tamaño de la imagen para que ocupe el ancho del contenedor */
+  max-width: 250px; /* Ajusta el tamaño máximo de la imagen */
+  height: auto;
+  border-radius: 15px;
+}
+
+.adText1 {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.carousel {
+  width: 100%;
+}

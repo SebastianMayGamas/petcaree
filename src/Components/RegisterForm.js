@@ -2,8 +2,9 @@ import styles from './ResisterForm.module.css';
 import React, { useState } from 'react';
 import dogmeo from '../imagenes/cat-71494_1280.jpg';
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../configuredatabase"; // Asegúrate de que la ruta es correcta
+import { auth, db } from "../configuredatabase"; // Asegúrate de que la ruta es correcta
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore"; // Importa Firestore
 
 const RegisterForm = () => {
     const [firstName, setFirstName] = useState('');
@@ -24,8 +25,16 @@ const RegisterForm = () => {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
             await updateProfile(user, {
-                displayName: `${firstName} ${lastName}`
+                displayName: `${firstName} ${lastName}` // Corrección de sintaxis
             });
+
+            // Guardar información adicional en Firestore
+            await setDoc(doc(db, "users", user.uid), {
+                displayName: `${firstName} ${lastName}`, // Corrección de sintaxis
+                email, // Corregido para que email sea una variable
+                isSuperUser: false // O true si quieres que este usuario sea superusuario
+            });
+
             navigate('/'); // Redirigir a la página de inicio después del registro
             console.log("Usuario registrado con éxito");
         } catch (error) {
@@ -108,7 +117,7 @@ const RegisterForm = () => {
                     </div>
                 </div>
             </div>
-            <div className={styles.bg} style={{ backgroundImage: `url(${dogmeo})` }}></div>
+            <div className={styles.bg} style={{ backgroundImage: `url(${dogmeo})` }}></div> {/* Corrección de sintaxis */}
         </div>
     );
 };

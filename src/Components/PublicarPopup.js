@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PublicarPopup.module.css';
 import imagenLogo from '../imagenes/logo.png';
-import { uploadfile } from '../configuredatabase'; // Asegúrate de que esta función devuelva la URL de la imagen cargada
+import { uploadfile } from '../configuredatabase';
 import { getAuth } from 'firebase/auth';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../configuredatabase';
+import { useNavigate } from 'react-router-dom';
+import Mapa from './Mapa';
 
 const PublicarPopup = ({ onClose, onAddPost }) => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [image, setImage] = useState(null);
+  const [postImage, setPostImage] = useState(null);
+  const [profileImage, setProfileImage] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [showMap, setShowMap] = useState(false);
+  const [location, setLocation] = useState(null);
 
   useEffect(() => {
     const auth = getAuth();
@@ -19,7 +25,7 @@ const PublicarPopup = ({ onClose, onAddPost }) => {
     if (user) {
       setEmail(user.email);
       setName(user.displayName);
-      setImage(user.photoURL);
+      setProfileImage(user.photoURL || 'https://via.placeholder.com/50');
     }
   }, []);
 
@@ -31,37 +37,60 @@ const PublicarPopup = ({ onClose, onAddPost }) => {
     setContent(e.target.value);
   };
 
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+  const handlePostImageChange = (e) => {
+    setPostImage(e.target.files[0]);
+  };
+
+  const handleLocationSelect = (location) => {
+    setLocation(location);
+    setShowMap(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Submit button clicked');
 
-    let imageUrl = 'https://via.placeholder.com/180'; // URL predeterminada
-    if (image) {
+    let postImageUrl = 'https://via.placeholder.com/180';
+    if (postImage) {
       try {
-        imageUrl = await uploadfile(image);
+        postImageUrl = await uploadfile(postImage);
+        console.log('Uploaded a blob or file!', postImageUrl);
       } catch (error) {
-        console.error('Error al subir la imagen: ', error);
+        console.error('Error al subir la imagen de la publicación: ', error);
       }
+    }
+
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+      alert('Usuario no autenticado.');
+      return;
     }
 
     const newPost = {
       user: {
+        uid: currentUser.uid,
         email: email,
         displayName: name,
-        photoURL : imageUrl
+        photoURL: profileImage,
       },
       title: title,
       content: content,
-      image: imageUrl,
-      createdAt: new Date()
+      image: postImageUrl,
+      location: location,
+      report: false,
+      createdAt: new Date(),
     };
 
     try {
       await addDoc(collection(db, 'posts'), newPost);
-      onAddPost(newPost);
+
+      // Crear y despachar el evento personalizado
+      const event = new CustomEvent('postAdded', { detail: newPost });
+      window.dispatchEvent(event);
+
+      console.log('Closing popup');
       onClose();
     } catch (error) {
       console.error('Error al guardar la publicación: ', error);
@@ -69,30 +98,73 @@ const PublicarPopup = ({ onClose, onAddPost }) => {
   };
 
   return (
-      <div className={styles.popupOverlay}>
-        <div className={styles.popupContent}>
-          <button className={styles.closeButton} onClick={onClose}>X</button>
+    <div className={styles.popupOverlay}>
+      <div className={styles.popupContent}>
+        <button
+          className={styles.closeButton}
+          onClick={() => {
+            console.log('Close button clicked');
+            onClose();
+          }}
+        >
+          X
+        </button>
+        {!showMap ? (
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.header}>
               <div className={styles.logoAndUser}>
                 <img src={imagenLogo} alt="Logo" className={styles.logo} />
-                <span className={styles.username}>{name}</span> {/* Asegúrate de no renderizar un objeto */}
+                <span className={styles.username}>{name}</span>
               </div>
-              <button type="submit" className={styles.submitButton}>Publicar</button>
+              <button type="submit" className={styles.submitButton}>
+                Publicar
+              </button>
             </div>
             <label className={styles.label}>
               Título:
-              <input type="text" name="title" value={title} onChange={handleTitleChange} className={styles.input} />
+              <input
+                type="text"
+                name="title"
+                value={title}
+                onChange={handleTitleChange}
+                className={styles.input}
+                required
+              />
             </label>
             <label className={styles.label}>
               Contenido:
-              <textarea name="content" value={content} onChange={handleContentChange} className={styles.textarea}></textarea>
+              <textarea
+                name="content"
+                value={content}
+                onChange={handleContentChange}
+                className={styles.textarea}
+                required
+              ></textarea>
             </label>
-            <input type="file" className={styles.uploadButton} onChange={handleImageChange} />
-            <button type="button" className={styles.locationButton}>Seleccionar Ubicación</button>
+            <input
+              type="file"
+              className={styles.uploadButton}
+              onChange={handlePostImageChange}
+            />
+            <button
+              type="button"
+              className={styles.locationButton}
+              onClick={() => setShowMap(true)}
+            >
+              Seleccionar Ubicación
+            </button>
           </form>
-        </div>
+        ) : (
+          <div>
+            <Mapa onSelectLocation={handleLocationSelect} />
+            <div className={styles.mapButtons}>
+              <button onClick={() => setShowMap(false)}>Cancelar</button>
+              <button onClick={() => setShowMap(false)}>Aceptar</button>
+            </div>
+          </div>
+        )}
       </div>
+    </div>
   );
 };
 
